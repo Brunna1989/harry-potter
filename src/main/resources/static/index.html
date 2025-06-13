@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Batalha de Bruxos</title>
+    <style>
+        body { font-family: Arial; text-align: center; background-color: #f0f0f0; }
+        select, button { margin: 10px; padding: 10px; }
+        .resultado { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h1>⚡ Batalha de Bruxos ⚡</h1>
+
+<label>Escolha o 1º bruxo:</label>
+<select id="bruxo1">
+    <option>Severo Snape</option>
+    <option>Alvo Dumbledore</option>
+</select>
+
+<label>Escolha o 2º bruxo:</label>
+<select id="bruxo2">
+    <option>Alvo Dumbledore</option>
+    <option>Severo Snape</option>
+</select>
+
+<br>
+<button onclick="lancarBatalha()">Iniciar Batalha</button>
+
+<div class="resultado" id="resultado"></div>
+
+<script>
+    async function lancarBatalha() {
+        const bruxo1 = document.getElementById('bruxo1').value;
+        const bruxo2 = document.getElementById('bruxo2').value;
+
+        const response = await fetch(`http://localhost:8080/bruxos/batalha?bruxo1=${encodeURIComponent(bruxo1)}&bruxo2=${encodeURIComponent(bruxo2)}`);
+        const data = await response.json();
+
+        document.getElementById('resultado').innerHTML = `
+        <p>${data.bruxo1} lançou: <strong>${data.magia1}</strong></p>
+        <p>${data.bruxo2} lançou: <strong>${data.magia2}</strong></p>
+        <p>🏆 <strong>${data.vencedor}</strong> venceu!</p>
+      `;
+    }
+</script>
+
+</body>
+</html>
