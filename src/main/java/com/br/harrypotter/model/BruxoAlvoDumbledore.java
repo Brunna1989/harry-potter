@@ -1,5 +1,10 @@
 package com.br.harrypotter.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("DUMBLEDORE")
 public class BruxoAlvoDumbledore extends Bruxo implements Magia {
 
     public BruxoAlvoDumbledore() {
