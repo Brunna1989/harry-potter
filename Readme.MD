@@ -33,6 +33,8 @@ git clone https://github.com/seuusuario/seurepositorio.git
 
 ```
 
+---
+
 2️⃣ **Execute o backend**
 
 ```bash
@@ -46,3 +48,32 @@ git clone https://github.com/seuusuario/seurepositorio.git
 
 4️⃣ **Escolha os bruxos e clique em “Iniciar Batalha”**
 ⚡✨🧙‍♂️💥
+
+---
+### ✨ **Cadastrando novos bruxos e batalhando**
+
+Você pode cadastrar novos bruxos utilizando o controller da API. Basta fazer uma requisição POST para:
+
+http://localhost:8080/bruxos
+
+Com um dos exemplos de JSON abaixo:
+
+```json
+{
+  "nome": "Severo Snape",
+  "idade": 48,
+  "casa": "SONSERINA"
+}
+````
+
+```json
+{
+  "nome": "Alvo Dumbledore",
+  "idade": 115,
+  "casa": "GRIFINORIA"
+}
+````
+
+Após cadastrar novos bruxos, basta atualizar a página do frontend em:
+
+http://localhost:8080/index.html
