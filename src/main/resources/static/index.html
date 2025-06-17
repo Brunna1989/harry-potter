@@ -15,16 +15,10 @@
 <h1>⚡ Batalha de Bruxos ⚡</h1>
 
 <label>Escolha o 1º bruxo:</label>
-<select id="bruxo1">
-    <option value="Alvo Dumbledore">Alvo Dumbledore</option>
-    <option value="Severo Snape">Severo Snape</option>
-</select>
+<select id="bruxo1"></select>
 
 <label>Escolha o 2º bruxo:</label>
-<select id="bruxo2">
-    <option value="Alvo Dumbledore">Alvo Dumbledore</option>
-    <option value="Severo Snape">Severo Snape</option>
-</select>
+<select id="bruxo2"></select>
 
 <br>
 <button onclick="lancarBatalha()">Iniciar Batalha</button>
@@ -32,6 +26,33 @@
 <div class="resultado" id="resultado"></div>
 
 <script>
+    // Função para buscar e popular os bruxos cadastrados
+    async function carregarBruxos() {
+        try {
+            const response = await fetch('http://localhost:8080/bruxos/listar-nomes');
+            const nomes = await response.json();
+
+            const select1 = document.getElementById('bruxo1');
+            const select2 = document.getElementById('bruxo2');
+            select1.innerHTML = '';
+            select2.innerHTML = '';
+
+            nomes.forEach(nome => {
+                const opt1 = document.createElement('option');
+                opt1.value = nome;
+                opt1.textContent = nome;
+                select1.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = nome;
+                opt2.textContent = nome;
+                select2.appendChild(opt2);
+            });
+        } catch (e) {
+            document.getElementById('resultado').innerHTML = '<span class="erro">Erro ao carregar bruxos.</span>';
+        }
+    }
+
     async function lancarBatalha() {
         const bruxo1 = document.getElementById('bruxo1').value;
         const bruxo2 = document.getElementById('bruxo2').value;
@@ -56,6 +77,9 @@
             document.getElementById('resultado').innerHTML = `<span class="erro">Erro ao realizar a batalha.</span>`;
         }
     }
+
+    // Carrega os bruxos ao abrir a página
+    window.onload = carregarBruxos;
 </script>
 
 </body>

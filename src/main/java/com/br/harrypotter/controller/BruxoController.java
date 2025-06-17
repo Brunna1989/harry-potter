@@ -12,6 +12,7 @@ import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/bruxos")
@@ -33,13 +34,20 @@ public class BruxoController {
         return service.listarTodos();
     }
 
+    // NOVO ENDPOINT: retorna só os nomes dos bruxos cadastrados
+    @GetMapping("/listar-nomes")
+    public List<String> listarNomes() {
+        return repository.findAll().stream()
+                .map(Bruxo::getNome)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/batalha")
     public ResponseEntity<?> batalha(
             @RequestParam String bruxo1,
             @RequestParam String bruxo2) {
 
         try {
-            // Remove acentos e espaços extras dos nomes
             String nome1 = normalizar(bruxo1);
             String nome2 = normalizar(bruxo2);
 
