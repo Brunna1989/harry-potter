@@ -3,24 +3,26 @@ package com.br.harrypotter.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_bruxo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bruxo {
+@ToString
+@EqualsAndHashCode
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // ou JOINED se quiser uma tabela por tipo
+@DiscriminatorColumn(name = "casa", discriminatorType = DiscriminatorType.STRING)
+public abstract class Bruxo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private int idade;
 
-    public Bruxo(String nome, int idade) {
-        this.nome = nome;
-        this.idade = idade;
+    private String casa;
+
+    public String transformarFeitico() {
+        return String.format("O bruxo %s é da casa %s!", nome, casa);
     }
 }
