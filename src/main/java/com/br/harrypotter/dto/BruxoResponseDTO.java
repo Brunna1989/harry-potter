@@ -1,14 +1,15 @@
 package com.br.harrypotter.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class BruxoResponseDTO {
-    private Long id;
     private String nome;
-    private int idade;
     private String casa;
-    private String magia;
+    private String mensagemFeitico;
 }
