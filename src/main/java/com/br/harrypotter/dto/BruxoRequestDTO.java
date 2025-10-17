@@ -1,16 +1,14 @@
 package com.br.harrypotter.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 public class BruxoRequestDTO {
     private String nome;
     private String casa;
-    private String descricao;
 }

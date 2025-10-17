@@ -1,14 +1,8 @@
 package com.br.harrypotter.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class BatalhaResponseDTO {
     private String bruxo1;
     private String magia1;
