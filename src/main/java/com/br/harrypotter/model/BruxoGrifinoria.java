@@ -6,17 +6,17 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("Grifinória")
 public class BruxoGrifinoria extends Bruxo implements Magia {
+
+    public BruxoGrifinoria() {
+        super();
+    }
+
     public BruxoGrifinoria(String nome) {
         super(null, nome, "Grifinória");
     }
 
-    public BruxoGrifinoria() {
-
-    }
-
     @Override
     public String lancarFeitico() {
-        return "Expelliarmus! - O bruxo da Grifinória lançou seu feitiço!";
+        return "Expelliarmus! — O bruxo da Grifinória lançou seu feitiço!";
     }
 }
-
