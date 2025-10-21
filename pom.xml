@@ -24,7 +24,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- 🌱 Spring Boot Core -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,7 +35,7 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- 🧰 Ferramentas de Desenvolvimento -->
+		<!-- 🧰 DevTools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -52,14 +51,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 🐘 PostgreSQL -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- 📘 OpenAPI / Swagger UI -->
+		<!-- 🐘 OpenAPI / Swagger UI -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -72,19 +64,24 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 			<exclusions>
-				<!-- Remove JUnit 4 -->
 				<exclusion>
 					<groupId>junit</groupId>
 					<artifactId>junit</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.10.2</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- 🟢 Banco de Dados H2 (em memória) -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -95,7 +92,6 @@
 
 	<build>
 		<plugins>
-
 			<!-- ⚙️ Compilador Maven -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -119,7 +115,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 		</plugins>
 	</build>
 
