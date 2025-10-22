@@ -62,11 +62,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 🟢 Banco de Dados H2 (em memória) -->
+		<!-- 🟢 Banco de Dados PostgreSQL  -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
 		</dependency>
 
 		<!-- 🧪 Testes com JUnit 5 + Spring Boot Test -->
