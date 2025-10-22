@@ -1,4 +1,4 @@
-package test.dtos;
+package test.DTOs;
 
 import com.br.harrypotter.dto.BatalhaResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,19 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes unitários para {@link BatalhaResponseDTO}.
- *
- * Utiliza um fixture para centralizar os dados de teste,
- * evitando repetição e facilitando manutenção.
- */
+
 public class BatalhaResponseDTOTest {
 
     private BatalhaResponseDTO fixture;
 
     @BeforeEach
     void setUp() {
-        // Fixture: cria uma instância padrão reutilizável em todos os testes
         fixture = new BatalhaResponseDTO(
                 "Harry Potter",
                 "Expelliarmus",
