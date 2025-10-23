@@ -1,4 +1,4 @@
-package test.model;
+package com.br.harrypotter.test.model;
 
 import com.br.harrypotter.model.Bruxo;
 import org.junit.jupiter.api.BeforeEach;

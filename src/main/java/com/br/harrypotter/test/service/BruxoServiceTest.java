@@ -1,4 +1,4 @@
-package test.service;
+package com.br.harrypotter.test.service;
 
 import com.br.harrypotter.dto.BatalhaResponseDTO;
 import com.br.harrypotter.dto.BruxoRequestDTO;

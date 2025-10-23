@@ -69,12 +69,14 @@
 			<version>42.6.0</version>
 		</dependency>
 
-		<!-- 🧪 Testes com JUnit 5 + Spring Boot Test -->
+		<!-- JUnit Jupiter (caso o IntelliJ não reconheça o starter test) -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.10.0</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<!-- 🎭 Mockito para testes unitários -->
 		<dependency>
@@ -97,6 +99,14 @@
 			<artifactId>hamcrest</artifactId>
 			<version>2.2</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
 		</dependency>
 
 	</dependencies>
