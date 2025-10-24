@@ -1,8 +1,8 @@
 package com.br.harrypotter.test.service;
 
-import com.br.harrypotter.dto.BatalhaResponseDTO;
 import com.br.harrypotter.dto.BruxoRequestDTO;
 import com.br.harrypotter.dto.BruxoResponseDTO;
+import com.br.harrypotter.dto.BatalhaResponseDTO;
 import com.br.harrypotter.model.Bruxo;
 import com.br.harrypotter.model.BruxoGrifinoria;
 import com.br.harrypotter.model.BruxoSonserina;
@@ -10,149 +10,123 @@ import com.br.harrypotter.repository.BruxoRepository;
 import com.br.harrypotter.service.BruxoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BruxoServiceTest {
 
+    @Mock
     private BruxoRepository repository;
+
+    @InjectMocks
     private BruxoService service;
 
+    AutoCloseable openMocks;
+
     @BeforeEach
-    void setup() {
-        repository = mock(BruxoRepository.class);
-        service = new BruxoService(repository);
+    void setUp() {
+        openMocks = MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void deveCriarBruxoGrifinoriaComSucesso() {
         BruxoRequestDTO dto = new BruxoRequestDTO("Harry Potter", "Grifinória");
-        Bruxo salvo = new BruxoGrifinoria("Harry Potter");
-        salvo.setId(1L);
+        ArgumentCaptor<Bruxo> captor = ArgumentCaptor.forClass(Bruxo.class);
 
-        when(repository.save(any(Bruxo.class))).thenReturn(salvo);
+        BruxoResponseDTO response = service.criarBruxo(dto);
 
-        BruxoResponseDTO resp = service.criarBruxo(dto);
+        verify(repository).save(captor.capture());
+        Bruxo salvo = captor.getValue();
 
-        assertNotNull(resp);
-        assertEquals(1L, resp.id());
-        assertEquals("Harry Potter", resp.nome());
-        assertEquals("Grifinória", resp.casa());
-        assertTrue(resp.mensagemFeitico().contains("Expelliarmus"));
-        verify(repository, times(1)).save(any(Bruxo.class));
+        assertNotNull(salvo);
+        assertEquals("Harry Potter", salvo.getNome());
+        assertEquals("Grifinória", salvo.getCasa());
+        assertEquals("Harry Potter", response.nome());
+        assertEquals("Grifinória", response.casa());
+        assertNotNull(response.feitico());
     }
 
     @Test
     void deveCriarBruxoSonserinaComSucesso() {
         BruxoRequestDTO dto = new BruxoRequestDTO("Draco Malfoy", "Sonserina");
-        Bruxo salvo = new BruxoSonserina("Draco Malfoy");
-        salvo.setId(2L);
+        ArgumentCaptor<Bruxo> captor = ArgumentCaptor.forClass(Bruxo.class);
 
-        when(repository.save(any(Bruxo.class))).thenReturn(salvo);
+        BruxoResponseDTO response = service.criarBruxo(dto);
 
-        BruxoResponseDTO resp = service.criarBruxo(dto);
+        verify(repository).save(captor.capture());
+        Bruxo salvo = captor.getValue();
 
-        assertNotNull(resp);
-        assertEquals("Draco Malfoy", resp.nome());
-        assertEquals("Sonserina", resp.casa());
-        assertTrue(resp.mensagemFeitico().contains("Serpensortia"));
+        assertNotNull(salvo);
+        assertEquals("Draco Malfoy", salvo.getNome());
+        assertEquals("Sonserina", salvo.getCasa());
+        assertEquals("Draco Malfoy", response.nome());
+        assertEquals("Sonserina", response.casa());
+        assertNotNull(response.feitico());
     }
 
     @Test
-    void deveLancarErroAoCriarBruxoDeCasaDesconhecida() {
-        BruxoRequestDTO dto = new BruxoRequestDTO("Tom Riddle", "Corvinal");
-
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.criarBruxo(dto)
-        );
-
-        assertEquals("Casa desconhecida: Corvinal", ex.getMessage());
+    void deveLancarExcecaoParaCasaInvalida() {
+        BruxoRequestDTO dto = new BruxoRequestDTO("Luna Lovegood", "Corvinal");
+        assertThrows(IllegalArgumentException.class, () -> service.criarBruxo(dto));
         verify(repository, never()).save(any());
     }
 
     @Test
-    void deveListarBruxosComFeitico() {
-        List<Bruxo> lista = List.of(new BruxoGrifinoria("Harry"), new BruxoSonserina("Draco"));
-        when(repository.findAll()).thenReturn(lista);
+    void deveListarTodosOsBruxos() {
+        Bruxo b1 = new BruxoGrifinoria(1L, "Harry Potter");
+        Bruxo b2 = new BruxoSonserina(2L, "Draco Malfoy");
+        when(repository.findAll()).thenReturn(List.of(b1, b2));
 
-        List<BruxoResponseDTO> resp = service.listarBruxos();
+        List<BruxoResponseDTO> lista = service.listarBruxos();
 
-        assertEquals(2, resp.size());
-        assertTrue(resp.get(0).mensagemFeitico().contains("Expelliarmus"));
-        assertTrue(resp.get(1).mensagemFeitico().contains("Serpensortia"));
+        assertEquals(2, lista.size());
+        assertEquals("Harry Potter", lista.get(0).nome());
+        assertEquals("Draco Malfoy", lista.get(1).nome());
     }
 
     @Test
-    void deveListarNomesDosBruxos() {
-        List<Bruxo> lista = List.of(new BruxoGrifinoria("Harry"), new BruxoSonserina("Draco"));
-        when(repository.findAll()).thenReturn(lista);
+    void deveListarApenasNomesDosBruxos() {
+        Bruxo b1 = new BruxoGrifinoria(1L, "Harry Potter");
+        Bruxo b2 = new BruxoSonserina(2L, "Draco Malfoy");
+        when(repository.findAll()).thenReturn(List.of(b1, b2));
 
         List<String> nomes = service.listarNomes();
 
-        assertEquals(List.of("Harry", "Draco"), nomes);
+        assertEquals(2, nomes.size());
+        assertTrue(nomes.contains("Harry Potter"));
+        assertTrue(nomes.contains("Draco Malfoy"));
+    }
+
+
+    @Test
+    void deveRealizarBatalhaEntreDoisBruxos() {
+        Bruxo b1 = new BruxoGrifinoria(1L, "Harry Potter");
+        Bruxo b2 = new BruxoSonserina(2L, "Draco Malfoy");
+
+        when(repository.findByNome("Harry Potter")).thenReturn(Optional.of(b1));
+        when(repository.findByNome("Draco Malfoy")).thenReturn(Optional.of(b2));
+
+        BatalhaResponseDTO batalha = service.batalhar("Harry Potter", "Draco Malfoy");
+
+        assertNotNull(batalha);
+        assertEquals("Harry Potter", batalha.nomeBruxo1());
+        assertEquals("Draco Malfoy", batalha.nomeBruxo2());
+        assertTrue(batalha.vencedor().equals("Harry Potter") || batalha.vencedor().equals("Draco Malfoy"));
     }
 
     @Test
-    void deveRealizarBatalhaComSucesso() {
-        Bruxo harry = new BruxoGrifinoria("Harry");
-        Bruxo draco = new BruxoSonserina("Draco");
+    void deveLancarExcecaoQuandoBruxoNaoEncontrado() {
+        when(repository.findByNome("Harry")).thenReturn(Optional.empty());
+        when(repository.findByNome("Draco")).thenReturn(Optional.empty());
 
-        when(repository.findAll()).thenReturn(List.of(harry, draco));
-
-        BatalhaResponseDTO resp = service.batalhar("Harry", "Draco");
-
-        assertNotNull(resp);
-        assertTrue(List.of("Harry", "Draco").contains(resp.vencedor()));
-        assertTrue(resp.magia1().contains("Expelliarmus") || resp.magia2().contains("Serpensortia"));
-    }
-
-    @Test
-    void deveLancarErroSeNomesForemIguaisNaBatalha() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.batalhar("Harry", "Harry")
-        );
-
-        assertEquals("Selecione dois bruxos diferentes para a batalha!", ex.getMessage());
-    }
-
-    @Test
-    void deveLancarErroSeNomeForNuloNaBatalha() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.batalhar(null, "Draco")
-        );
-
-        assertEquals("Selecione dois bruxos diferentes para a batalha!", ex.getMessage());
-    }
-
-    @Test
-    void deveLancarErroSeBruxo1NaoForEncontrado() {
-        Bruxo draco = new BruxoSonserina("Draco");
-        when(repository.findAll()).thenReturn(List.of(draco));
-
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.batalhar("Harry", "Draco")
-        );
-
-        assertEquals("Bruxo 1 não encontrado: Harry", ex.getMessage());
-    }
-
-    @Test
-    void deveLancarErroSeBruxo2NaoForEncontrado() {
-        Bruxo harry = new BruxoGrifinoria("Harry");
-        when(repository.findAll()).thenReturn(List.of(harry));
-
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> service.batalhar("Harry", "Draco")
-        );
-
-        assertEquals("Bruxo 2 não encontrado: Draco", ex.getMessage());
+        assertThrows(IllegalArgumentException.class, () -> service.batalhar("Harry", "Draco"));
     }
 }

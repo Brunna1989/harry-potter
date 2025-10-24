@@ -26,10 +26,9 @@
 <div class="resultado" id="resultado"></div>
 
 <script>
-    // Função para buscar e popular os bruxos cadastrados
     async function carregarBruxos() {
         try {
-            const response = await fetch('http://localhost:8080/bruxos/listar-nomes');
+            const response = await fetch('http://localhost:8080/api/bruxos/listar-nomes');
             const nomes = await response.json();
 
             const select1 = document.getElementById('bruxo1');
@@ -60,7 +59,7 @@
         document.getElementById('resultado').innerHTML = "Carregando...";
 
         try {
-            const response = await fetch(`http://localhost:8080/bruxos/batalha?bruxo1=${encodeURIComponent(bruxo1)}&bruxo2=${encodeURIComponent(bruxo2)}`);
+            const response = await fetch(`http://localhost:8080/api/bruxos/batalha?bruxo1=${encodeURIComponent(bruxo1)}&bruxo2=${encodeURIComponent(bruxo2)}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -78,7 +77,6 @@
         }
     }
 
-    // Carrega os bruxos ao abrir a página
     window.onload = carregarBruxos;
 </script>
 

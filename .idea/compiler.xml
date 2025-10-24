@@ -16,12 +16,14 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
         </processorPath>
         <module name=".harrypotter" />
+        <module name="harrypotter" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name=".harrypotter" options="-parameters" />
+      <module name="harrypotter" options="-parameters --add-exports jdk.jfr/jdk.jfr.internal.jfc.model=ALL-UNNAMED" />
     </option>
   </component>
 </project>

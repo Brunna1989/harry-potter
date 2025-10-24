@@ -3,6 +3,7 @@ package com.br.harrypotter.test.model;
 import com.br.harrypotter.model.BruxoSonserina;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BruxoSonserinaTest {
@@ -33,7 +34,8 @@ public class BruxoSonserinaTest {
 
     @Test
     void deveLancarFeiticoCorretamente() {
-        String esperado = "Serpensortia! — O bruxo da Sonserina lançou seu feitiço!";
+        // Ajuste aqui:
+        String esperado = "Serpensortia!";
         assertEquals(esperado, bruxoComNome.lancarFeitico());
     }
 

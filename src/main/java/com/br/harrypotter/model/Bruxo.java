@@ -1,10 +1,16 @@
 package com.br.harrypotter.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "casa", discriminatorType = DiscriminatorType.STRING)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public abstract class Bruxo {
 
     @Id
@@ -13,41 +19,7 @@ public abstract class Bruxo {
 
     private String nome;
 
-    @Column(name = "casa", insertable = false, updatable = false)
     private String casa;
-
-    public Bruxo() {
-    }
-
-    public Bruxo(Long id, String nome, String casa) {
-        this.id = id;
-        this.nome = nome;
-        this.casa = casa;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCasa() {
-        return casa;
-    }
-
-    public void setCasa(String casa) {
-        this.casa = casa;
-    }
 
     public abstract String lancarFeitico();
 

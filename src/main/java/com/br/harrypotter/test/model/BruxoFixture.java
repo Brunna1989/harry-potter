@@ -4,6 +4,10 @@ import com.br.harrypotter.model.Bruxo;
 
 public class BruxoFixture {
 
+    public static Bruxo criarBruxoPadrao() {
+        return new BruxoFake(1L, "Harry Potter", "Grifinória");
+    }
+
     public static class BruxoFake extends Bruxo {
         public BruxoFake(Long id, String nome, String casa) {
             super(id, nome, casa);
@@ -13,13 +17,5 @@ public class BruxoFixture {
         public String lancarFeitico() {
             return "Feitiço lançado com sucesso!";
         }
-    }
-
-    public static Bruxo criarBruxoPadrao() {
-        return new BruxoFake(1L, "Harry Potter", "Grifinória");
-    }
-
-    public static Bruxo criarBruxoPersonalizado(Long id, String nome, String casa) {
-        return new BruxoFake(id, nome, casa);
     }
 }

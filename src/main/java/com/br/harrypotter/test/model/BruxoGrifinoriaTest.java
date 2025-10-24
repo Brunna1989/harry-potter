@@ -23,16 +23,18 @@ public class BruxoGrifinoriaTest {
         assertNotNull(bruxo);
         assertEquals("Harry Potter", bruxo.getNome());
         assertEquals("Grifinória", bruxo.getCasa());
-        assertNull(bruxo.getId()); // pois ainda não foi persistido
+        assertNull(bruxo.getId()); // ainda não persistido
     }
 
     @Test
     @DisplayName("Deve lançar feitiço corretamente para bruxo da Grifinória")
     void deveLancarFeiticoCorretamente() {
         String resultado = bruxo.lancarFeitico();
+
         assertNotNull(resultado);
         assertTrue(resultado.contains("Expelliarmus"));
         assertTrue(resultado.contains("Grifinória"));
+        assertTrue(resultado.contains("Harry Potter"));
     }
 
     @Test

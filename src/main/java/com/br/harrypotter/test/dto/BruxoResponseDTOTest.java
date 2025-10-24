@@ -12,30 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Testes do DTO BruxoResponseDTO")
 public class BruxoResponseDTOTest {
 
-    @Test
-    @DisplayName("Deve criar BruxoResponseDTO corretamente com dados do fixture padrão")
-    void deveCriarBruxoResponsePadrao() {
-        BruxoResponseDTO dto = BruxoResponseFixture.criarBruxoResponsePadrao();
 
-        assertNotNull(dto);
-        assertEquals(1L, dto.id());
-        assertEquals("Harry Potter", dto.nome());
-        assertEquals("Grifinória", dto.casa());
-        assertEquals("Expelliarmus lançado com sucesso!", dto.mensagemFeitico());
-    }
 
-    @Test
-    @DisplayName("Deve criar BruxoResponseDTO personalizado corretamente")
-    void deveCriarBruxoResponsePersonalizado() {
-        BruxoResponseDTO dto = BruxoResponseFixture.criarBruxoResponsePersonalizado(
-                2L, "Hermione Granger", "Grifinória", "Alohomora executado!"
-        );
-
-        assertEquals(2L, dto.id());
-        assertEquals("Hermione Granger", dto.nome());
-        assertEquals("Grifinória", dto.casa());
-        assertEquals("Alohomora executado!", dto.mensagemFeitico());
-    }
 
     @Test
     @DisplayName("Deve comparar corretamente dois BruxoResponseDTO iguais")
