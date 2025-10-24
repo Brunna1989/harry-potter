@@ -1,4 +1,4 @@
-package com.br.harrypotter.test.DTOs;
+package com.br.harrypotter.test.dto;
 
 import com.br.harrypotter.dto.BatalhaResponseDTO;
 import org.junit.jupiter.api.BeforeEach;

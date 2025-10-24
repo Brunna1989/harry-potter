@@ -1,6 +1,7 @@
-package com.br.harrypotter.test.DTOs;
+package com.br.harrypotter.test.dto;
 
 import com.br.harrypotter.dto.BruxoRequestDTO;
+import com.br.harrypotter.test.model.BruxoFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
