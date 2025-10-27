@@ -38,17 +38,6 @@ public class BruxoGrifinoriaTest {
     }
 
     @Test
-    @DisplayName("Deve permitir criação via construtor padrão")
-    void devePermitirConstrutorPadrao() {
-        BruxoGrifinoria novo = new BruxoGrifinoria();
-        novo.setNome("Hermione Granger");
-        novo.setCasa("Grifinória");
-
-        assertEquals("Hermione Granger", novo.getNome());
-        assertEquals("Grifinória", novo.getCasa());
-    }
-
-    @Test
     @DisplayName("toString deve conter nome e casa")
     void deveGerarToStringCorreto() {
         String texto = bruxo.toString();

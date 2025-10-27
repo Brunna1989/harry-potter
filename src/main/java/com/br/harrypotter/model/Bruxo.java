@@ -12,12 +12,9 @@ public abstract class Bruxo {
 
     private String nome;
 
-    private String casa;
-
-    public Bruxo(Long id, String nome, String casa) {
+    public Bruxo(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.casa = casa;
     }
 
     public Bruxo() {}
@@ -30,16 +27,8 @@ public abstract class Bruxo {
         return nome;
     }
 
-    public String getCasa() {
-        return casa;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setCasa(String casa) {
-        this.casa = casa;
     }
 
     public void setId(Long id) {
@@ -47,9 +36,10 @@ public abstract class Bruxo {
     }
 
     public abstract String lancarFeitico();
+    public abstract String getCasa();
 
     @Override
     public String toString() {
-        return "Bruxo{id=" + id + ", nome='" + nome + "', casa='" + casa + "'}";
+        return "Bruxo{id=" + id + ", nome='" + nome + "'}";
     }
 }

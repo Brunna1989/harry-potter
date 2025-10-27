@@ -10,7 +10,7 @@ public class BruxoFixture {
 
     public static class BruxoFake extends Bruxo {
         public BruxoFake() {
-            super(1L, "Harry Potter", "Grifinória");
+            super(1L, "Harry Potter");
         }
 
         @Override
@@ -21,6 +21,11 @@ public class BruxoFixture {
         @Override
         public String toString() {
             return "BruxoFake{id=" + getId() + ", nome='" + getNome() + "', casa='" + getCasa() + "'}";
+        }
+
+        @Override
+        public String getCasa() {
+            return "Grifinória";
         }
     }
 }

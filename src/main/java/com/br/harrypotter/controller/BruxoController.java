@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/bruxos")
+@RequestMapping("/api/bruxos")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class BruxoController {
@@ -42,5 +42,11 @@ public class BruxoController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletarTodos() {
+        service.deletarTodos();
+        return ResponseEntity.noContent().build();
     }
 }

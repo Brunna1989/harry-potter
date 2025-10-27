@@ -12,11 +12,15 @@ public class BruxoSonserina extends Bruxo {
 
     @Builder
     public BruxoSonserina(Long id, String nome) {
-        super(id, nome, "Sonserina");
+        super(id, nome);
     }
 
     public BruxoSonserina(String nome) {
-        super(null, nome, "Sonserina");
+        super(null, nome);
+    }
+
+    public String getCasa() {
+        return "Sonserina";
     }
 
     @Override

@@ -12,20 +12,24 @@ public class BruxoGrifinoria extends Bruxo {
 
     @Builder
     public BruxoGrifinoria(Long id, String nome) {
-        super(id, nome, "Grifinória");
+        super(id, nome);
     }
 
     public BruxoGrifinoria(String nome) {
-        super(null, nome, "Grifinória");
+        super(null, nome);
     }
 
     @Override
     public String lancarFeitico() {
-        return "Expelliarmus! Bruxo: " + getNome() + ", Casa: " + getCasa();
+        return "Expelliarmus! Bruxo: " + getNome() + ", Casa: Grifinória";
     }
 
     @Override
     public String toString() {
-        return "BruxoGrifinoria{id=" + getId() + ", nome='" + getNome() + "', casa='" + getCasa() + "'}";
+        return "BruxoGrifinoria{id=" + getId() + ", nome='" + getNome() + "', casa='Grifinória'}";
+    }
+
+    public String getCasa() {
+        return "Grifinória";
     }
 }

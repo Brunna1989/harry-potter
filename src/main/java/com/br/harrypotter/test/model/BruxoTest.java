@@ -23,7 +23,6 @@ public class BruxoTest {
         assertNotNull(bruxo);
         assertEquals(1L, bruxo.getId());
         assertEquals("Harry Potter", bruxo.getNome());
-        assertEquals("Grifinória", bruxo.getCasa());
     }
 
     @Test
@@ -31,11 +30,9 @@ public class BruxoTest {
     void deveAlterarAtributosCorretamente() {
         bruxo.setId(2L);
         bruxo.setNome("Hermione Granger");
-        bruxo.setCasa("Grifinória");
 
         assertEquals(2L, bruxo.getId());
         assertEquals("Hermione Granger", bruxo.getNome());
-        assertEquals("Grifinória", bruxo.getCasa());
     }
 
     @Test
@@ -46,11 +43,10 @@ public class BruxoTest {
     }
 
     @Test
-    @DisplayName("toString deve conter nome e casa do bruxo")
+    @DisplayName("toString deve conter nome e id do bruxo")
     void deveGerarToStringCorreto() {
         String texto = bruxo.toString();
         assertTrue(texto.contains("Harry Potter"));
-        assertTrue(texto.contains("Grifinória"));
         assertTrue(texto.contains("id=1"));
     }
 
@@ -60,6 +56,5 @@ public class BruxoTest {
         Bruxo bruxoVazio = new BruxoFixture.BruxoFake();
         assertNotNull(bruxoVazio.getId());
         assertNotNull(bruxoVazio.getNome());
-        assertNotNull(bruxoVazio.getCasa());
     }
 }

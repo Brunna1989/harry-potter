@@ -52,4 +52,8 @@ public class BruxoService {
                 vencedor
         );
     }
+
+    public void deletarTodos() {
+        repository.deleteAll();
+    }
 }
