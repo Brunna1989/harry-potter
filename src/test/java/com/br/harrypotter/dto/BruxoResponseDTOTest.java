@@ -1,6 +1,5 @@
-package dto;
+package com.br.harrypotter.dto;
 
-import com.br.harrypotter.dto.BruxoResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

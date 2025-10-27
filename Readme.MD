@@ -14,66 +14,47 @@ Neste jogo simples, desenvolvido com **Java + Spring Boot** no backend e **HTML 
 
 ---
 
-### 🚀 **Tecnologias Utilizadas**
+## 🔹 Tecnologias Utilizadas
 
-- ⚙️ **Java 21** + **Spring Boot**
-- 📁 **JPA/Hibernate**
-- 🗂️ **H2 Database** (ou outro DB, se preferir)
-- 🌐 **HTML5**
-- 🎨 **CSS3**
-- ✏️ **JavaScript (Fetch API)**
-
----
-
-### 🎮 **Como Jogar**
-
-1️⃣ **Clone o repositório**
-```bash
-git clone https://github.com/seuusuario/seurepositorio.git
-
-```
+- Java 21
+- Spring Boot 3.5
+- Spring Data JPA
+- PostgreSQL (via Docker)
+- HikariCP (connection pool)
+- HTML + JavaScript (frontend simples)
+- Lombok
 
 ---
 
-2️⃣ **Execute o backend**
+## ⚙️ Configurações da API
 
-```bash
-./mvnw spring-boot:run
+### CORS
 
-```
+Todos os endpoints permitem requisições de qualquer origem:
 
-
-3️⃣ **Abra o arquivo index.html em um navegador de sua preferência.**
-
-
-4️⃣ **Escolha os bruxos e clique em “Iniciar Batalha”**
-⚡✨🧙‍♂️💥
-
----
-### ✨ **Cadastrando novos bruxos e batalhando**
-
-Você pode cadastrar novos bruxos utilizando o controller da API. Basta fazer uma requisição POST para:
-
-http://localhost:8080/bruxos
-
-Com um dos exemplos de JSON abaixo:
-
-```json
-{
-  "nome": "Severo Snape",
-  "idade": 48,
-  "casa": "SONSERINA"
+```java
+@Configuration
+public class CorsConfig {
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+            }
+        };
+    }
 }
-````
 
-```json
-{
-  "nome": "Alvo Dumbledore",
-  "idade": 115,
-  "casa": "GRIFINORIA"
-}
-````
 
-Após cadastrar novos bruxos, basta atualizar a página do frontend em:
 
-http://localhost:8080/index.html
+| Método   | URL                                     | Descrição                                                             |
+| -------- | --------------------------------------- | --------------------------------------------------------------------- |
+| `POST`   | `/api/bruxos`                           | Cria um bruxo. Corpo JSON: `{ "nome": "Draco", "casa": "Sonserina" }` |
+| `GET`    | `/api/bruxos`                           | Lista todos os bruxos cadastrados                                     |
+| `GET`    | `/api/bruxos/listar-nomes`              | Lista apenas os nomes dos bruxos                                      |
+| `GET`    | `/api/bruxos/batalha?bruxo1=X&bruxo2=Y` | Realiza batalha entre dois bruxos                                     |
+| `DELETE` | `/api/bruxos`                           | Deleta todos os bruxos                                                |
+| `DELETE` | `/api/bruxos/{id}`                      | Deleta um bruxo específico pelo ID                                    |

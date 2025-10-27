@@ -1,4 +1,4 @@
-package dto;
+package com.br.harrypotter.dto;
 
 import com.br.harrypotter.dto.BruxoResponseDTO;
 
