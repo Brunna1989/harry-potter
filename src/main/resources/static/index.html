@@ -4,20 +4,56 @@
     <meta charset="UTF-8">
     <title>Batalha de Bruxos</title>
     <style>
-        body { font-family: Arial; text-align: center; background-color: #f0f0f0; }
-        select, button { margin: 10px; padding: 10px; }
-        .resultado { margin-top: 20px; font-weight: bold; }
-        .erro { color: red; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        select, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .erro {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
 <h1>⚡ Batalha de Bruxos ⚡</h1>
 
-<label>Escolha o 1º bruxo:</label>
+<label for="bruxo1">Escolha o 1º bruxo:</label>
 <select id="bruxo1"></select>
 
-<label>Escolha o 2º bruxo:</label>
+<label for="bruxo2">Escolha o 2º bruxo:</label>
 <select id="bruxo2"></select>
 
 <br>
@@ -29,6 +65,8 @@
     async function carregarBruxos() {
         try {
             const response = await fetch('http://localhost:8080/api/bruxos/listar-nomes');
+            if (!response.ok) throw new Error('Erro ao buscar bruxos');
+
             const nomes = await response.json();
 
             const select1 = document.getElementById('bruxo1');
@@ -56,23 +94,32 @@
         const bruxo1 = document.getElementById('bruxo1').value;
         const bruxo2 = document.getElementById('bruxo2').value;
 
-        document.getElementById('resultado').innerHTML = "Carregando...";
+        if (bruxo1 === bruxo2) {
+            document.getElementById('resultado').innerHTML = '<span class="erro">Escolha dois bruxos diferentes!</span>';
+            return;
+        }
+
+        document.getElementById('resultado').innerHTML = "⚔️ Iniciando batalha...";
 
         try {
             const response = await fetch(`http://localhost:8080/api/bruxos/batalha?bruxo1=${encodeURIComponent(bruxo1)}&bruxo2=${encodeURIComponent(bruxo2)}`);
             const data = await response.json();
+
+            console.log("Resultado da batalha:", data); // debug
 
             if (!response.ok) {
                 document.getElementById('resultado').innerHTML = `<span class="erro">${data.erro || "Erro ao realizar a batalha."}</span>`;
                 return;
             }
 
+            // ✅ Correção: usar os nomes corretos do DTO
             document.getElementById('resultado').innerHTML = `
-                <p>${data.bruxo1} lançou: <strong>${data.magia1}</strong></p>
-                <p>${data.bruxo2} lançou: <strong>${data.magia2}</strong></p>
+                <p>${data.nomeBruxo1} lançou: <strong>${data.feiticoBruxo1}</strong></p>
+                <p>${data.nomeBruxo2} lançou: <strong>${data.feiticoBruxo2}</strong></p>
                 <p>🏆 <strong>${data.vencedor}</strong> venceu!</p>
             `;
         } catch (e) {
+            console.error("Erro:", e);
             document.getElementById('resultado').innerHTML = `<span class="erro">Erro ao realizar a batalha.</span>`;
         }
     }
