@@ -1,4 +1,4 @@
-package com.br.harrypotter.test.service;
+package com.br.harrypotter.service;
 
 import com.br.harrypotter.dto.BruxoRequestDTO;
 import com.br.harrypotter.dto.BruxoResponseDTO;
@@ -7,7 +7,6 @@ import com.br.harrypotter.model.Bruxo;
 import com.br.harrypotter.model.BruxoGrifinoria;
 import com.br.harrypotter.model.BruxoSonserina;
 import com.br.harrypotter.repository.BruxoRepository;
-import com.br.harrypotter.service.BruxoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -40,7 +39,10 @@ public class BruxoServiceTest {
     @Test
     void deveCriarBruxoGrifinoriaComSucesso() {
         BruxoRequestDTO dto = new BruxoRequestDTO("Harry Potter", "Grifinória");
+
         ArgumentCaptor<Bruxo> captor = ArgumentCaptor.forClass(Bruxo.class);
+
+        when(repository.save(any(Bruxo.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         BruxoResponseDTO response = service.criarBruxo(dto);
 
@@ -50,6 +52,7 @@ public class BruxoServiceTest {
         assertNotNull(salvo);
         assertEquals("Harry Potter", salvo.getNome());
         assertEquals("Grifinória", salvo.getCasa());
+
         assertEquals("Harry Potter", response.nome());
         assertEquals("Grifinória", response.casa());
         assertNotNull(response.feitico());
@@ -58,28 +61,22 @@ public class BruxoServiceTest {
 
     @Test
     void deveCriarBruxoSonserinaComSucesso() {
-        // DTO de entrada
+
         BruxoRequestDTO dto = new BruxoRequestDTO("Draco Malfoy", "Sonserina");
 
-        // Capturador do objeto que será salvo
         ArgumentCaptor<Bruxo> captor = ArgumentCaptor.forClass(Bruxo.class);
 
-        // Mock do comportamento do repository
         when(repository.save(any(Bruxo.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // Chamada do service
         BruxoResponseDTO response = service.criarBruxo(dto);
 
-        // Verifica se repository.save foi chamado e captura o objeto
         verify(repository).save(captor.capture());
         Bruxo salvo = captor.getValue();
 
-        // Verificações da entidade salva
         assertNotNull(salvo);
         assertEquals("Draco Malfoy", salvo.getNome());
         assertEquals("Sonserina", salvo.getCasa());
 
-        // Verificações do DTO de resposta
         assertEquals("Draco Malfoy", response.nome());
         assertEquals("Sonserina", response.casa());
         assertNotNull(response.feitico());
@@ -136,11 +133,14 @@ public class BruxoServiceTest {
         assertTrue(batalha.vencedor().equals("Harry Potter") || batalha.vencedor().equals("Draco Malfoy"));
     }
 
+
     @Test
     void deveLancarExcecaoQuandoBruxoNaoEncontrado() {
-        when(repository.findByNome("Harry")).thenReturn(Optional.empty());
-        when(repository.findByNome("Draco")).thenReturn(Optional.empty());
+        when(repository.findByNome(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> service.batalhar("Harry", "Draco"));
+        assertThrows(
+                jakarta.persistence.EntityNotFoundException.class,
+                () -> service.batalhar("Harry", "Draco")
+        );
     }
 }

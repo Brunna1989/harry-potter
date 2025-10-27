@@ -1,4 +1,4 @@
-package com.br.harrypotter.test.model;
+package com.br.harrypotter.model;
 
 import com.br.harrypotter.model.Bruxo;
 

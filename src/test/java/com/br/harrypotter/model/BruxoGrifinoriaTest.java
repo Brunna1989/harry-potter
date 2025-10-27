@@ -1,6 +1,5 @@
-package com.br.harrypotter.test.model;
+package com.br.harrypotter.model;
 
-import com.br.harrypotter.model.BruxoGrifinoria;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.br.harrypotter.test.dto;
+package dto;
 
 import com.br.harrypotter.dto.BruxoResponseDTO;
 import org.junit.jupiter.api.DisplayName;
@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 @DisplayName("Testes do DTO BruxoResponseDTO")
 public class BruxoResponseDTOTest {
-
-
-
 
     @Test
     @DisplayName("Deve comparar corretamente dois BruxoResponseDTO iguais")

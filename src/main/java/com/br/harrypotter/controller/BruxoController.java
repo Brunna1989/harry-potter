@@ -4,6 +4,7 @@ import com.br.harrypotter.dto.BruxoRequestDTO;
 import com.br.harrypotter.dto.BruxoResponseDTO;
 import com.br.harrypotter.dto.BatalhaResponseDTO;
 import com.br.harrypotter.service.BruxoService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,8 @@ public class BruxoController {
         try {
             BatalhaResponseDTO resultado = service.batalhar(bruxo1, bruxo2);
             return ResponseEntity.ok(resultado);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("erro", e.getMessage()));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
@@ -48,5 +51,15 @@ public class BruxoController {
     public ResponseEntity<Void> deletarTodos() {
         service.deletarTodos();
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarPorId(@PathVariable Long id) {
+        try {
+            service.deletarPorId(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("erro", e.getMessage()));
+        }
     }
 }

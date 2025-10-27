@@ -1,6 +1,5 @@
-package com.br.harrypotter.test.model;
+package com.br.harrypotter.model;
 
-import com.br.harrypotter.model.BruxoSonserina;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
