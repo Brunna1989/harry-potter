@@ -34,7 +34,6 @@ public class BruxoSonserinaTest {
 
     @Test
     void deveLancarFeiticoCorretamente() {
-        // Ajuste aqui:
         String esperado = "Serpensortia!";
         assertEquals(esperado, bruxoComNome.lancarFeitico());
     }

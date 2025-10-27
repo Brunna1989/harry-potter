@@ -54,22 +54,35 @@ public class BruxoServiceTest {
         assertNotNull(response.feitico());
     }
 
+
     @Test
     void deveCriarBruxoSonserinaComSucesso() {
+        // DTO de entrada
         BruxoRequestDTO dto = new BruxoRequestDTO("Draco Malfoy", "Sonserina");
+
+        // Capturador do objeto que será salvo
         ArgumentCaptor<Bruxo> captor = ArgumentCaptor.forClass(Bruxo.class);
 
+        // Mock do comportamento do repository
+        when(repository.save(any(Bruxo.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Chamada do service
         BruxoResponseDTO response = service.criarBruxo(dto);
 
+        // Verifica se repository.save foi chamado e captura o objeto
         verify(repository).save(captor.capture());
         Bruxo salvo = captor.getValue();
 
+        // Verificações da entidade salva
         assertNotNull(salvo);
         assertEquals("Draco Malfoy", salvo.getNome());
         assertEquals("Sonserina", salvo.getCasa());
+
+        // Verificações do DTO de resposta
         assertEquals("Draco Malfoy", response.nome());
         assertEquals("Sonserina", response.casa());
         assertNotNull(response.feitico());
+        assertEquals("Serpensortia!", response.feitico());
     }
 
     @Test

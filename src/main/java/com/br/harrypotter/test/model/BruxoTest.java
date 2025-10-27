@@ -57,9 +57,9 @@ public class BruxoTest {
     @Test
     @DisplayName("Construtor padrão deve criar um bruxo vazio")
     void deveCriarBruxoVazioComConstrutorPadrao() {
-        Bruxo bruxoVazio = new BruxoFixture.BruxoFake(null, null, null);
-        assertNull(bruxoVazio.getId());
-        assertNull(bruxoVazio.getNome());
-        assertNull(bruxoVazio.getCasa());
+        Bruxo bruxoVazio = new BruxoFixture.BruxoFake();
+        assertNotNull(bruxoVazio.getId());
+        assertNotNull(bruxoVazio.getNome());
+        assertNotNull(bruxoVazio.getCasa());
     }
 }

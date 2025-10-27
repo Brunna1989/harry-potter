@@ -23,7 +23,7 @@ public class BruxoGrifinoriaTest {
         assertNotNull(bruxo);
         assertEquals("Harry Potter", bruxo.getNome());
         assertEquals("Grifinória", bruxo.getCasa());
-        assertNull(bruxo.getId()); // ainda não persistido
+        assertNull(bruxo.getId());
     }
 
     @Test

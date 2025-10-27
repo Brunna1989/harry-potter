@@ -23,7 +23,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name=".harrypotter" options="-parameters" />
-      <module name="harrypotter" options="-parameters --add-exports jdk.jfr/jdk.jfr.internal.jfc.model=ALL-UNNAMED" />
+      <module name="harrypotter" options="-parameters" />
     </option>
   </component>
 </project>

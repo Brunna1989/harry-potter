@@ -21,15 +21,11 @@ public class BruxoGrifinoria extends Bruxo {
 
     @Override
     public String lancarFeitico() {
-        // Ajustado para incluir a casa (Grifinória) e o nome do bruxo
-        return getNome() + " lança o feitiço Expelliarmus pela coragem da casa Grifinória!";
+        return "Expelliarmus! Bruxo: " + getNome() + ", Casa: " + getCasa();
     }
 
     @Override
     public String toString() {
-        return "BruxoGrifinoria{" +
-                "nome='" + getNome() + '\'' +
-                ", casa='" + getCasa() + '\'' +
-                '}';
+        return "BruxoGrifinoria{id=" + getId() + ", nome='" + getNome() + "', casa='" + getCasa() + "'}";
     }
 }
