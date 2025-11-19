@@ -1,4 +1,4 @@
-package com.br.harrypotter.integration;
+package com.br.harrypotter.controller;
 
 import com.br.harrypotter.dto.BruxoRequestDTO;
 import com.br.harrypotter.dto.BruxoResponseDTO;

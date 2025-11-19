@@ -1,13 +1,14 @@
 package com.br.harrypotter.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("Grifinória")
-@NoArgsConstructor
 public class BruxoGrifinoria extends Bruxo {
 
     @Builder
@@ -15,20 +16,12 @@ public class BruxoGrifinoria extends Bruxo {
         super(id, nome);
     }
 
-    public BruxoGrifinoria(String nome) {
-        super(null, nome);
-    }
-
     @Override
     public String lancarFeitico() {
-        return "Expelliarmus! Bruxo: " + getNome() + ", Casa: Grifinória";
+        return "Expelliarmus! O bruxo da Grifinória lançou seu feitiço!";
     }
 
     @Override
-    public String toString() {
-        return "BruxoGrifinoria{id=" + getId() + ", nome='" + getNome() + "', casa='Grifinória'}";
-    }
-
     public String getCasa() {
         return "Grifinória";
     }

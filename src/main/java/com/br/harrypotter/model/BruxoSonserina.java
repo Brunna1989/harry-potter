@@ -1,13 +1,14 @@
 package com.br.harrypotter.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("Sonserina")
-@NoArgsConstructor
 public class BruxoSonserina extends Bruxo {
 
     @Builder
@@ -15,16 +16,13 @@ public class BruxoSonserina extends Bruxo {
         super(id, nome);
     }
 
-    public BruxoSonserina(String nome) {
-        super(null, nome);
-    }
-
-    public String getCasa() {
-        return "Sonserina";
+    @Override
+    public String lancarFeitico() {
+        return "Serpensortia! O bruxo da Sonserina lançou seu feitiço!";
     }
 
     @Override
-    public String lancarFeitico() {
-        return "Serpensortia!";
+    public String getCasa() {
+        return "Sonserina";
     }
 }
