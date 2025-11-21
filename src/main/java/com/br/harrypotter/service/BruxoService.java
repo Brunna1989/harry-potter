@@ -19,7 +19,7 @@ public class BruxoService {
     public BruxoResponseDTO criar(BruxoRequestDTO dto) {
 
         Bruxo bruxo = switch (dto.casa()) {
-            case "Grifinória" -> new BruxoGrifinoria(null, dto.nome());
+            case "Grifinoria" -> new BruxoGrifinoria(null, dto.nome());
             case "Sonserina" -> new BruxoSonserina(null, dto.nome());
             default -> throw new CasaInvalidaException(dto.casa());
         };
@@ -45,6 +45,11 @@ public class BruxoService {
     public Bruxo buscarPorNome(String nome) {
         return repository.findByNome(nome)
                 .orElseThrow(() -> new BruxoNaoEncontradoException("Bruxo não encontrado: " + nome));
+    }
+
+    public Bruxo buscarPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BruxoNaoEncontradoException("Bruxo com ID " + id + " não existe"));
     }
 
     public void deletar(Long id) {

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorValue("Grifinória")
+@DiscriminatorValue("Grifinoria")
 public class BruxoGrifinoria extends Bruxo {
 
     @Builder
@@ -18,11 +18,11 @@ public class BruxoGrifinoria extends Bruxo {
 
     @Override
     public String lancarFeitico() {
-        return "Expelliarmus! O bruxo da Grifinória lançou seu feitiço!";
+        return "Expelliarmus! O bruxo da Grifinoria lançou seu feitiço!";
     }
 
     @Override
     public String getCasa() {
-        return "Grifinória";
+        return "Grifinoria";
     }
 }

@@ -2,6 +2,7 @@ package com.br.harrypotter.controller;
 
 import com.br.harrypotter.dto.BruxoRequestDTO;
 import com.br.harrypotter.dto.BruxoResponseDTO;
+import com.br.harrypotter.model.Bruxo;
 import com.br.harrypotter.service.BruxoService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,21 @@ public class BruxoController {
     @GetMapping
     public ResponseEntity<List<BruxoResponseDTO>> listar() {
         return ResponseEntity.ok(service.listar());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BruxoResponseDTO> buscarPorId(@PathVariable Long id) {
+
+        Bruxo bruxo = service.buscarPorId(id);
+
+        BruxoResponseDTO resposta = new BruxoResponseDTO(
+                bruxo.getId(),
+                bruxo.getNome(),
+                bruxo.getCasa(),
+                bruxo.lancarFeitico()
+        );
+
+        return ResponseEntity.ok(resposta);
     }
 
     @DeleteMapping("/{id}")

@@ -21,17 +21,17 @@ public class Batalha {
         private Long id;
 
         @ManyToOne(optional = false)
-        @JoinColumn(name = "atacante_id")
-        private Bruxo bruxoAtacante;
+        @JoinColumn(name = "bruxo1_id")
+        private Bruxo bruxo1;
 
         @ManyToOne(optional = false)
-        @JoinColumn(name = "defensor_id")
-        private Bruxo bruxoDefensor;
+        @JoinColumn(name = "bruxo2_id")
+        private Bruxo bruxo2;
 
         private Long vencedorId;
 
         private String resultado;
 
-        private LocalDateTime instante;
+
     }
 
