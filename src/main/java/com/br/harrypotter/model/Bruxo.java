@@ -20,4 +20,6 @@ public abstract class Bruxo implements Magia {
     private String nome;
 
     public abstract String getCasa();
+
+
 }
