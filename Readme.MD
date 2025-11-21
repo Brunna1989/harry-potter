@@ -50,14 +50,14 @@ public class CorsConfig {
 }
 ````
 
-| Método | URL                                     | Descrição                                                             |
-| ------ | --------------------------------------- | --------------------------------------------------------------------- |
-| POST   | `/api/bruxos`                           | Cria um bruxo. Corpo JSON: `{ "nome": "Draco", "casa": "Sonserina" }` |
-| GET    | `/api/bruxos`                           | Lista todos os bruxos cadastrados                                     |
-| GET    | `/api/bruxos/listar-nomes`              | Lista apenas os nomes dos bruxos                                      |
-| GET    | `/api/bruxos/batalha?bruxo1=X&bruxo2=Y` | Realiza batalha entre dois bruxos                                     |
-| DELETE | `/api/bruxos`                           | Deleta todos os bruxos                                                |
-| DELETE | `/api/bruxos/{id}`                      | Deleta um bruxo específico pelo ID                                    |
+| Método   | URL                       | Descrição                                                       |
+|----------|---------------------------|-----------------------------------------------------------------|
+| POST     | `/api/bruxos`             | Cria um bruxo. Corpo JSON: `{ "nome": "Draco", "casa": "Sonserina" }` |
+| GET      | `/api/bruxos`             | Lista todos os bruxos cadastrados                               |
+| GET      | `/api/bruxos/listar-nomes`| Lista apenas os nomes dos bruxos                                |
+| POST     | `/api/batalhas`           | Realiza batalha entre dois bruxos.                              |
+| DELETE   | `/api/bruxos`             | Deleta todos os bruxos                                          |
+| DELETE   | `/api/bruxos/{id}`        | Deleta um bruxo específico pelo ID                              |
 
 
 ````
