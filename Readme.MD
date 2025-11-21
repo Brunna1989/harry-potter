@@ -16,7 +16,7 @@ Neste jogo simples, desenvolvido com **Java + Spring Boot** no backend e **HTML 
 
 ## 🔹 Tecnologias Utilizadas
 
-- Java 21
+- Java 17
 - Spring Boot 3.5
 - Spring Data JPA
 - PostgreSQL (via Docker)
