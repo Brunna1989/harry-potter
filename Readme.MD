@@ -40,34 +40,37 @@ Todos os endpoints permitem requisições de qualquer origem.
 ```css
 com/br/harrypotter
 ├── model
-│ ├── Bruxo.java
-│ ├── BruxoGrifinoria.java
-│ ├── BruxoSonserina.java
-│ ├── Magia.java
-│ └── Batalha.java
+│   ├── Bruxo.java
+│   ├── BruxoGrifinoria.java
+│   ├── BruxoSonserina.java
+│   ├── Magia.java
+│   └── Batalha.java
 │
 ├── dto
-│ ├── BruxoRequestDTO.java
-│ ├── BruxoResponseDTO.java
-│ ├── BatalhaRequestDto.java
-│ └── BatalhaResponseDTO.java
+│   ├── BruxoRequestDTO.java
+│   ├── BruxoResponseDTO.java
+│   ├── BatalhaRequestDto.java
+│   └── BatalhaResponseDTO.java
 │
 ├── repository
-│ ├── BruxoRepository.java
-│ └── BatalhaRepository.java
+│   ├── BruxoRepository.java
+│   └── BatalhaRepository.java
 │
 ├── service
-│ ├── BruxoService.java
-│ └── BatalhaService.java
+│   ├── BruxoService.java
+│   └── BatalhaService.java
 │
 ├── controller
-│ ├── BruxoController.java
-│ └── BatalhaController.java
+│   ├── BruxoController.java
+│   └── BatalhaController.java
 │
-└── exception
-├── CasaInvalidaException.java
-├── BruxoNaoEncontradoException.java
-└── BatalhaInvalidaException.java
+├── exception
+│   ├── CasaInvalidaException.java
+│   ├── BruxoNaoEncontradoException.java
+│   └── BatalhaInvalidaException.java
+│
+└── config
+└── SwaggerConfig
 ````
 
 ## 🗂 Estrutura de Classes
@@ -75,6 +78,12 @@ com/br/harrypotter
 Abaixo está a estrutura completa das classes utilizadas neste projeto Harry Potter – Batalha de Bruxos.
 
 ---
+
+
+### 📁 **package com.br.harrypotter.config**
+
+#### ⚙️ `SwaggerConfig`
+- Configuração do Swagger/OpenAPI para documentação da API
 
 ### 📁 **package com.br.harrypotter.model**
 
@@ -266,6 +275,49 @@ O projeto contém uma classe de configuração (exemplo típico):
 
 ```java
 @Configuration
-public class SwaggerConfig {
-
+@Bean
+public OpenAPI customOpenAPI() {
+    return new OpenAPI()
+            .info(new Info()
+                    .title("API Harry Potter")
+                    .version("1.0")
+                    .description("Documentação da API do Sistema Harry Potter")
+                    .contact(new Contact()
+                            .name("Equipe de Desenvolvimento")
+                            .email("devs@hogwarts.com"))
+                    .license(new License()
+                            .name("Apache 2.0")
+                            .url("http://springdoc.org")));
 }
+````
+
+🧪 Testes com Swagger
+
+Embora o Swagger não faça testes por conta própria, ele é uma excelente ferramenta para:
+
+Validar visualmente se endpoints estão funcionando
+
+Conferir retornos das exceções personalizadas
+
+Testar respostas com diferentes cenários
+
+Use-o como apoio enquanto constrói Controller Tests e Integration Tests.
+
+---
+
+📌 Observações Importantes
+
+A documentação é atualizada automaticamente quando você altera Controllers ou DTOs.
+
+Não é necessário reiniciar a aplicação para ver mudanças nos endpoints, apenas recompilar/restart normal do backend.
+
+O Swagger funciona tanto com JSON quanto com XML (se habilitado).
+
+Ótimo para onboard rápido de novos desenvolvedores no seu projeto.
+
+📄 Licença
+
+Este projeto foi desenvolvido exclusivamente para fins educacionais e de aprendizado.
+Você é livre para estudar, modificar, melhorar e utilizar o código como referência em seus próprios estudos ou projetos pessoais.
+
+⚡✨🧙‍♂️💥
