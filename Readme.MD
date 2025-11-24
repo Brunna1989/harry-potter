@@ -395,7 +395,7 @@ O Swagger funciona tanto com JSON quanto com XML (se habilitado).
 
 Ótimo para onboard rápido de novos desenvolvedores no seu projeto.
 
-📄 Licença
+## 📄 Licença
 
 Este projeto foi desenvolvido exclusivamente para fins educacionais e de aprendizado.
 Você é livre para estudar, modificar, melhorar e utilizar o código como referência em seus próprios estudos ou projetos pessoais.
