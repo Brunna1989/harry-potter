@@ -7,6 +7,7 @@ Bem-vindo a **Batalha de Bruxos**, um projeto inspirado no universo mágico de *
 ### 📜 **Sobre o Projeto**
 
 Neste jogo simples, desenvolvido com **Java + Spring Boot** no backend e **HTML + JS** no frontend, você poderá:
+
 - 📋 Cadastrar bruxos com nome e casa.
 - 🔮 Simular uma batalha entre bruxos famosos como **Bruxo Grifinória** 🧙‍♂️✨ e **Bruxo Sonserina** 🐍🪄.
 - 🎇 Ver qual magia cada bruxo lançou.
@@ -20,266 +21,251 @@ Neste jogo simples, desenvolvido com **Java + Spring Boot** no backend e **HTML 
 - Spring Boot 3.5
 - Spring Data JPA
 - PostgreSQL (via Docker)
-- HikariCP (connection pool)
-- HTML + JavaScript (frontend simples)
+- HikariCP
+- HTML + JavaScript
 - Lombok
-- Swagger (documentação da API)
+- Swagger (SpringDoc)
 
 ---
 
 ## ⚙️ Configurações da API
 
-### CORS
+### 🌐 **CORS**
+Todos os endpoints permitem requisições de qualquer origem.
 
-Todos os endpoints permitem requisições de qualquer origem:
+---
+
+## 🌳 Estrutura do Projeto (TREE)
+
+```css
+com/br/harrypotter
+├── model
+│ ├── Bruxo.java
+│ ├── BruxoGrifinoria.java
+│ ├── BruxoSonserina.java
+│ ├── Magia.java
+│ └── Batalha.java
+│
+├── dto
+│ ├── BruxoRequestDTO.java
+│ ├── BruxoResponseDTO.java
+│ ├── BatalhaRequestDto.java
+│ └── BatalhaResponseDTO.java
+│
+├── repository
+│ ├── BruxoRepository.java
+│ └── BatalhaRepository.java
+│
+├── service
+│ ├── BruxoService.java
+│ └── BatalhaService.java
+│
+├── controller
+│ ├── BruxoController.java
+│ └── BatalhaController.java
+│
+└── exception
+├── CasaInvalidaException.java
+├── BruxoNaoEncontradoException.java
+└── BatalhaInvalidaException.java
+````
+
+## 🗂 Estrutura de Classes
+
+Abaixo está a estrutura completa das classes utilizadas neste projeto Harry Potter – Batalha de Bruxos.
+
+---
+
+### 📁 **package com.br.harrypotter.model**
+
+#### 🧙‍♂️ `Bruxo` (abstract)
+- `id`
+- `nome`
+- `getCasa()` (abstract)
+- Implementa `Magia` (interface)
+
+#### 🦁 `BruxoGrifinoria`
+- Extende `Bruxo`
+- `getCasa()` retorna `"Grifinoria"`
+- `lancarFeitico()` lança **Expelliarmus**
+
+#### 🐍 `BruxoSonserina`
+- Extende `Bruxo`
+- `getCasa()` retorna `"Sonserina"`
+- `lancarFeitico()` lança **Serpensortia**
+
+#### ✨ `Magia` (interface)
+- Método: `String lancarFeitico()`
+
+#### ⚔️ `Batalha`
+- `id`
+- `bruxo1` (ManyToOne)
+- `bruxo2` (ManyToOne)
+- `vencedorId`
+- `resultado`
+
+---
+
+### 📁 **package com.br.harrypotter.dto**
+
+#### 🧙‍♂️ `BruxoRequestDTO`
+- `nome`
+- `casa`
+
+#### 🧙‍♂️ `BruxoResponseDTO`
+- `id`
+- `nome`
+- `casa`
+- `feitico`
+
+#### ⚔️ `BatalhaRequestDto`
+- `bruxo1` (nome)
+- `bruxo2` (nome)
+
+#### ⚔️ `BatalhaResponseDTO`
+- `id`
+- `nomeBruxo1`
+- `feiticoBruxo1`
+- `nomeBruxo2`
+- `feiticoBruxo2`
+- `vencedor`
+- Override de `toString()`
+
+---
+
+### 📁 **package com.br.harrypotter.repository**
+
+#### 📘 `BruxoRepository`
+- Extende `JpaRepository<Bruxo, Long>`
+- Método customizado:  
+  `Optional<Bruxo> findByNome(String nome)`
+
+#### 📙 `BatalhaRepository`
+- Extende `JpaRepository<Batalha, Long>`
+
+---
+
+### 📁 **package com.br.harrypotter.service**
+
+#### 🧙‍♂️ `BruxoService`
+- Criar bruxo por casa
+- Listar bruxos
+- Buscar por nome
+- Buscar por ID
+- Deletar por ID
+- Deletar todos
+
+#### ⚔️ `BatalhaService`
+- Regras da batalha
+- Validações (nomes vazios, bruxos iguais, bruxo inexistente)
+- Cálculo de poder dos feitiços
+- Armazena histórico
+- Buscar batalha por ID
+
+---
+
+### 📁 **package com.br.harrypotter.controller**
+
+#### 🧙‍♂️ `BruxoController`
+- `POST /api/bruxos` — criar bruxo
+- `GET /api/bruxos` — listar bruxos
+- `GET /api/bruxos/{id}` — buscar por ID
+- `DELETE /api/bruxos/{id}` — deletar por ID
+- `DELETE /api/bruxos` — deletar todos
+
+#### ⚔️ `BatalhaController`
+- `POST /api/batalhas` — realizar batalha
+- `GET /api/batalhas/historico` — histórico
+- `GET /api/batalhas/{id}` — buscar batalha
+
+---
+
+### 📁 **package com.br.harrypotter.exception**
+
+#### 🚫 `CasaInvalidaException`
+- Lançada se casa não for **Grifinoria** ou **Sonserina**
+
+#### 🚫 `BruxoNaoEncontradoException`
+- Lançada quando bruxo não existe (por ID ou nome)
+
+#### 🚫 `BatalhaInvalidaException`
+- Nomes vazios, repetidos ou batalha não encontrada
+
+---
+
+## 📚 **Endpoints da API**
+
+| Método   | URL                          | Descrição                                                                 |
+|----------|------------------------------|---------------------------------------------------------------------------|
+| POST     | `/api/bruxos`                | Cria um bruxo. Body: `{ "nome": "Draco", "casa": "Sonserina" }`          |
+| GET      | `/api/bruxos`                | Lista todos os bruxos cadastrados                                         |
+| GET      | `/api/bruxos/{id}`           | Busca um bruxo específico pelo ID                                         |
+| DELETE   | `/api/bruxos`                | Deleta todos os bruxos                                                    |
+| DELETE   | `/api/bruxos/{id}`           | Deleta um bruxo específico pelo ID                                        |
+| POST     | `/api/batalhas`              | Realiza batalha entre dois bruxos. Body: `{ "bruxo1": "...", "bruxo2": "..." }` |
+| GET      | `/api/batalhas/historico`    | Lista todas as batalhas realizadas                                        |
+| GET      | `/api/batalhas/{id}`         | Busca uma batalha específica pelo ID                                      |
+
+
+
+## 📘 Documentação da API — Swagger
+
+Este projeto utiliza **Swagger UI** e **Springdoc OpenAPI** para gerar automaticamente a documentação interativa da API.
+
+### 🔗 Acesso ao Swagger
+
+Após iniciar a aplicação, acesse:
+
+👉 **http://localhost:8080/swagger-ui/index.html**
+
+Esse endereço abrirá uma interface gráfica onde você pode:
+- Visualizar todos os endpoints
+- Ver modelos de entrada e saída (DTOs)
+- Enviar requisições diretamente pela interface
+- Testar a API sem necessidade de ferramentas externas como Postman ou Insomnia
+
+---
+
+## 🧭 Como funciona o Swagger neste projeto
+
+### ✔️ Geração automática
+O Swagger faz a leitura:
+- das anotações das classes Controller,
+- dos DTOs,
+- dos modelos (Entities),
+- e das respostas HTTP.
+
+A partir disso, ele gera automaticamente a documentação com:
+- Métodos disponíveis (GET, POST, DELETE…)
+- URLs de cada endpoint
+- Exemplo de requisição e resposta
+- Códigos HTTP retornados
+- Parâmetros, bodies e path variables
+- Descrição dos modelos de dados
+
+### ✔️ Interface Interativa
+A interface do Swagger permite:
+- Executar endpoints clicando em **"Try it out"**
+- Enviar JSONs diretamente pelo navegador
+- Visualizar exemplos gerados automaticamente
+- Receber respostas com corpo, headers e status code
+
+### ✔️ Facilita testes e desenvolvimento
+Você pode usar o Swagger para:
+- Testar CRUDs rapidamente
+- Validar regras de negócio do serviço
+- Verificar se as exceptions estão sendo retornadas corretamente
+- Acompanhar alterações nos modelos e DTOs
+- Demonstrar o funcionamento da API para outros desenvolvedores
+
+---
+
+## 📄 Arquivo de configuração do Swagger
+
+O projeto contém uma classe de configuração (exemplo típico):
 
 ```java
 @Configuration
-public class CorsConfig {
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
-            }
-        };
-    }
+public class SwaggerConfig {
+
 }
-````
-
-| Método   | URL                       | Descrição                                                       |
-|----------|---------------------------|-----------------------------------------------------------------|
-| POST     | `/api/bruxos`             | Cria um bruxo. Corpo JSON: `{ "nome": "Draco", "casa": "Sonserina" }` |
-| GET      | `/api/bruxos`             | Lista todos os bruxos cadastrados                               |
-| GET      | `/api/bruxos/listar-nomes`| Lista apenas os nomes dos bruxos                                |
-| POST     | `/api/batalhas`           | Realiza batalha entre dois bruxos.                              |
-| DELETE   | `/api/bruxos`             | Deleta todos os bruxos                                          |
-| DELETE   | `/api/bruxos/{id}`        | Deleta um bruxo específico pelo ID                              |
-
-
-````
-🧾 Estrutura de DTOs
-
-BruxoRequestDTO: nome, casa
-
-BruxoResponseDTO: id, nome, casa, feitico
-
-BatalhaResponseDTO: nomeBruxo1, feiticoBruxo1, nomeBruxo2, feiticoBruxo2, vencedor
-
-````
-
-````
-💻 Frontend
-
-Arquivo: index.html (simples interface para iniciar batalhas)
-
-Seleciona dois bruxos
-
-Dispara uma requisição para /api/bruxos/batalha
-
-Exibe resultado da batalha em tela
-
-````
-
-```
-
-🗂 Estrutura de Classes
-
-model/Bruxo (abstrato)
-
-model/BruxoGrifinoria e model/BruxoSonserina
-
-model/Magia (interface para lançar feitiço)
-
-repository/BruxoRepository
-
-service/BruxoService
-
-controller/BruxoController
-
-dto/* (request e response)
-
-exception/BruxoNotFoundException e GlobalExceptionHandler
-
-````
-
-# 🐘 Configuração PostgreSQL com Docker
-
-docker-compose.yml:
-
-````Yaml
-version: '3.9'
-services:
-batalha:
-image: postgres:latest
-container_name: batalha
-restart: always
-environment:
-POSTGRES_USER: harry
-POSTGRES_PASSWORD: potter
-POSTGRES_DB: batalha
-ports:
-- "5432:5432"
-volumes:
-- postgres_data:/var/lib/postgresql/data
-- ./init-db:/docker-entrypoint-initdb.d
-
-pgadmin:
-image: dpage/pgadmin4:latest
-container_name: pgadmin
-restart: always
-environment:
-PGADMIN_DEFAULT_EMAIL: admin@harrypotter.com
-PGADMIN_DEFAULT_PASSWORD: 123456
-ports:
-- "5050:80"
-depends_on:
-- batalha
-
-volumes:
-postgres_data:
-````
-
-```properties
-# ===============================
-# 🔗 CONEXÃO COM O BANCO POSTGRES
-# ===============================
-spring.datasource.url=jdbc:postgresql://localhost:5432/batalha
-spring.datasource.username=harry
-spring.datasource.password=potter
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-# ===============================
-# ⚙️ JPA / HIBERNATE
-# ===============================
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-
-# ===============================
-# 🚀 HIKARI CONNECTION POOL
-# ===============================
-spring.datasource.hikari.maximum-pool-size=10
-spring.datasource.hikari.minimum-idle=2
-spring.datasource.hikari.idle-timeout=30000
-spring.datasource.hikari.max-lifetime=1800000
-spring.datasource.hikari.pool-name=HikariCP
-spring.datasource.hikari.connection-timeout=30000
-spring.datasource.hikari.validation-timeout=5000
-
-# ===============================
-# 🧾 LOGGING
-# ===============================
-logging.level.org.hibernate.SQL=DEBUG
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-logging.level.org.springframework.jdbc.core=DEBUG
-logging.level.com.br.harrypotter=DEBUG
-
-# ===============================
-# 🌐 SERVIDOR WEB
-# ===============================
-server.port=8080
-server.servlet.context-path=/
-
-# ===============================
-# 🧩 TESTES DE INTEGRAÇÃO
-# ===============================
-spring.test.database.replace=none
-spring.jpa.properties.hibernate.default_schema=public
-````
-
-# 📖 Funcionamento do Swagger no Projeto Harry Potter
-
-O Swagger (via SpringDoc) foi configurado para gerar a **documentação interativa da API** automaticamente a partir dos seus controllers e endpoints.
-
----
-
-## 1️⃣ URL de Acesso
-
-Após iniciar a aplicação (`Application.java`), abra o navegador e acesse:
-
-http://localhost:8080/swagger-ui.html
-
-
-Isso abrirá a interface do Swagger UI, onde você verá todos os endpoints disponíveis do projeto, organizados por **tags** (ex.: "Bruxos").
-
-O JSON da documentação pode ser acessado diretamente em:
-
-http://localhost:8080/v3/api-docs
-
-
-
----
-
-## 2️⃣ Funcionalidades do Swagger
-
-- **Listar endpoints**: Todos os métodos do `BruxoController` são exibidos com suas rotas, métodos HTTP e descrições.
-- **Testar requisições**: Você pode enviar requisições diretamente pelo Swagger UI, preenchendo parâmetros e bodies.
-- **Visualizar respostas**: O Swagger mostra o modelo de dados (`BruxoRequestDTO`, `BruxoResponseDTO`, `BatalhaResponseDTO`) e os códigos de resposta (`200`, `400`, `404`, etc.).
-- **Filtros de pacotes e paths**: Apenas endpoints dentro de `com.br.harrypotter.controller` e com path `/api/**` estão disponíveis.
-
----
-
-## 3️⃣ Exemplos de Requisições
-
-### Criar um bruxo
-
-POST /api/bruxos
-Body:
-{
-"nome": "Harry Potter",
-"casa": "Grifinória",
-"poder": 85
-}
-
-
-### Listar Bruxos
-
-GET /api/bruxos
-
-### Realizar uma batalha entre dois bruxos
-
-GET /api/bruxos/batalha?bruxo1=Harry&bruxo2=Draco
-
-### Deletar um bruxo por ID
-
-DELETE /api/bruxos/{id}
-
-### Deletar todos os bruxos
-
-DELETE /api/bruxos
-
-
----
-
-## 4️⃣ Observações
-
-- O Swagger UI é **interativo**, permitindo testar todos os endpoints sem precisar de ferramentas externas.
-- Todos os DTOs, parâmetros e respostas estão documentados automaticamente via **anotações `@Operation`, `@ApiResponse` e `@Parameter`** no controller.
-- Qualquer alteração nos controllers será refletida automaticamente no Swagger ao reiniciar a aplicação.
-
-
-## Você ainda pode acessar o index.html dentro de resources>static:
-
-**Abra o arquivo index.html em um navegador de sua preferência.**
-
-- Cadastre os bruxos via requisição postman: 
-
-http://localhost:8080/api/bruxos
-
-{
-"nome": "Marlene",
-"casa": "Sonserina"
-}
-
-
-
-4️⃣ **Escolha os bruxos e clique em “Iniciar Batalha”**
-⚡✨🧙‍♂️💥
-
-
