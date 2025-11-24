@@ -27,14 +27,6 @@ Neste jogo simples, desenvolvido com **Java + Spring Boot** no backend e **HTML 
 - Swagger (SpringDoc)
 
 ---
-
-## ⚙️ Configurações da API
-
-### 🌐 **CORS**
-Todos os endpoints permitem requisições de qualquer origem.
-
----
-
 ## 🌳 Estrutura do Projeto (TREE)
 
 ```css
