@@ -63,6 +63,7 @@ public class BatalhaService {
         batalhaRepository.save(batalha);
 
         return new BatalhaResponseDTO(
+                b1.getId(),
                 b1.getNome(),
                 b1.lancarFeitico(),
                 b2.getNome(),

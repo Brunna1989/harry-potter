@@ -1,6 +1,7 @@
 package com.br.harrypotter.dto;
 
 public record BatalhaResponseDTO(
+        Long id,
         String nomeBruxo1,
         String feiticoBruxo1,
         String nomeBruxo2,
