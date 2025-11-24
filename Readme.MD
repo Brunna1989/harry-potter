@@ -207,7 +207,95 @@ Abaixo está a estrutura completa das classes utilizadas neste projeto Harry Pot
 | GET      | `/api/batalhas/historico`    | Lista todas as batalhas realizadas                                        |
 | GET      | `/api/batalhas/{id}`         | Busca uma batalha específica pelo ID                                      |
 
+---
 
+## 🐳📦 Acessando o Banco de Dados PostgreSQL via Docker:
+
+Este projeto utiliza o PostgreSQL em um container Docker, conforme configurado no docker-compose.yml.
+Abaixo estão os comandos essenciais para acessar, listar tabelas e consultar dados diretamente no banco utilizado pela API.
+
+---
+
+## ▶️ Subindo os Containers (PostgreSQL + PgAdmin)
+
+Para iniciar o banco de dados e o PgAdmin:
+
+```bash
+docker-compose up -d
+```
+
+PostgreSQL ficará disponível em: www.localhost:5432
+
+PgAdmin ficará disponível em: http://localhost:5050
+
+---
+
+## 🗄️ Conectando ao Banco de Dados:
+
+Dentro do container, execute:
+
+```bash
+psql -U harry -d batalha
+```
+
+Usuário: harry
+
+Senha: definida no docker-compose (potter)
+
+Banco: batalha
+
+Você verá o prompt:
+
+```ini
+batalha=>
+````
+
+---
+
+## 📋 Listando Tabelas do Banco
+
+Para ver todas as tabelas existentes no schema público:
+
+```sql
+\dt
+````
+
+Se a aplicação já tiver rodado pelo menos uma vez, você verá tabelas como:
+
+- bruxo
+- batalhas
+
+---
+
+## 🔍 Consultando Dados dos Bruxos
+
+Para visualizar os bruxos cadastrados via API:
+
+```sql
+SELECT * FROM bruxo;
+```
+
+---
+
+## ⚔️ Consultando Histórico de Batalhas
+
+```sql
+SELECT * FROM batalhas;
+```
+
+---
+
+## 🚪 Saindo do PostgreSQL
+
+```sql
+\q
+````
+
+E depois, para sair do container:
+
+```bash
+exit
+````
 
 ## 📘 Documentação da API — Swagger
 
@@ -283,7 +371,7 @@ public OpenAPI customOpenAPI() {
 }
 ````
 
-🧪 Testes com Swagger
+## 🧪 Testes com Swagger
 
 Embora o Swagger não faça testes por conta própria, ele é uma excelente ferramenta para:
 
@@ -297,7 +385,7 @@ Use-o como apoio enquanto constrói Controller Tests e Integration Tests.
 
 ---
 
-📌 Observações Importantes
+## 📌 Observações Importantes
 
 A documentação é atualizada automaticamente quando você altera Controllers ou DTOs.
 
